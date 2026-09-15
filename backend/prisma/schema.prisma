@@ -1,0 +1,66 @@
+// Backend Prisma Schema
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Profile {
+  id             String   @id @default(uuid())
+  name           String
+  role           String
+  degree         String
+  email          String
+  phone          String
+  github         String
+  linkedin       String
+  bio            String
+  headline       String
+  supportingText String
+  location       String
+  updatedAt      DateTime @updatedAt
+}
+
+model Skill {
+  id          String   @id @default(uuid())
+  name        String
+  category    String
+  description String
+  level       String
+  icon        String
+  createdAt   DateTime @default(now())
+}
+
+model Project {
+  id           String   @id @default(uuid())
+  title        String
+  slug         String   @unique
+  description  String
+  problem      String
+  solution     String
+  technologies String[]
+  githubUrl    String
+  liveUrl      String
+  imageUrl     String
+  featured     Boolean  @default(false)
+  status       String
+  aiMlApproach String
+  keyFeatures  String[]
+  results      String
+  category     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  status    String   @default("unread")
+  createdAt DateTime @default(now())
+}
